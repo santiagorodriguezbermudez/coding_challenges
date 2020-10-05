@@ -5,8 +5,6 @@ def merge_sort(array1, array2)
   second_index = 0
   
   while (first_index <= (array1.length - 1)) && (second_index <= (array2.length - 1))
-    p "i: #{first_index}, j:#{second_index}"
-    p sorted_array.to_a
     if array1[first_index] < array2[second_index]
       sorted_array << array1[first_index]
       first_index += 1
