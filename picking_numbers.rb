@@ -7,23 +7,39 @@ def picking_numbers(a)
       counting_hash[element] = 1
     end
   end
-  puts 'This is the counting hash'
-  puts counting_hash.sort_by {|key, value| key}.to_s
-  # Find the most popular item
-  most_popular_item, number_of_times_most_popular_item = counting_hash.max_by{|number, number_of_times_in_array| number_of_times_in_array}
+  # puts 'This is the counting hash'
+  # puts counting_hash
+  # puts counting_hash.sort_by {|key, value| value}.reverse.to_s
   
-  lower_most_popular = counting_hash[most_popular_item - 1] ? counting_hash[most_popular_item - 1] : 0
-  upper_most_popular = counting_hash[most_popular_item + 1] ? counting_hash[most_popular_item + 1] : 0
+  # Find the most popular item and second most popular item
+  sorted_counting_hash = counting_hash.sort_by {|key, value| value}.reverse
+  most_popular_item, number_of_times_most_popular_item = sorted_counting_hash[0][0], sorted_counting_hash[0][1]
+  second_most_popular_item, number_of_times_second_most_popular_item = sorted_counting_hash[1][0], sorted_counting_hash[1][1] if sorted_counting_hash.length > 1
 
-  if upper_most_popular > lower_most_popular
-    number_of_times_most_popular_item + upper_most_popular
+  # Find the most popular addition
+  sum_popular = find_upper_and_lower(counting_hash, most_popular_item, number_of_times_most_popular_item)
+  sum_second_popular = find_upper_and_lower(counting_hash, second_most_popular_item, number_of_times_second_most_popular_item)  if sorted_counting_hash.length > 1
+
+  if sorted_counting_hash.length > 1
+    sum_popular > sum_second_popular ? sum_popular : sum_second_popular
   else
-    number_of_times_most_popular_item + lower_most_popular
+    sum_popular
   end
-  
+    
 end
 
-a = [4, 6, 5, 3, 3, 1]
+def find_upper_and_lower(counting_hash, value, number_of_times)
+  lower_limit = counting_hash[value - 1] ? counting_hash[value - 1] : 0
+  upper_limit = counting_hash[value + 1] ? counting_hash[value + 1] : 0
+  sum = 0
+  if upper_limit > lower_limit
+    sum = number_of_times + upper_limit
+  else
+    sum = number_of_times + lower_limit
+  end
+end
+
+a = [66, 66, 66, 66]
 puts picking_numbers(a)
 
 b = [1, 2, 2, 3, 1, 2]
