@@ -18,4 +18,3 @@ end
 
 puts encryption('haveaniceday')
 
-# A new comment
