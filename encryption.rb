@@ -17,3 +17,5 @@ def encryption(string_to_encrypt)
 end
 
 puts encryption('haveaniceday')
+
+# A new comment
